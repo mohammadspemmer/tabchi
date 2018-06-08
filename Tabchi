@@ -66,7 +66,7 @@ elif [ "$1" = "reset" ]; then
 			done
 		fi
 elif [ "$1" = "install" ]; then
-wget "http://mohammadhozori.senatorhost.com/sarakhoshgel-bot" -O telegram-bot 
+wget "http://aytor.senatorhost.com/sarakhoshgel-bot" -O telegram-bot 
       chmod +x telegram-bot
 	  chmod +x clean
  sudo apt-get -y update && sudo apt-get -y upgrade 
