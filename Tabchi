@@ -1,0 +1,129 @@
+prtred() {
+  printf '\e[1;31m%s\n\e[0;39;49m' "$@"
+}
+prtgrn() {
+  printf '\e[1;32m%s\n\e[0;39;49m' "$@"
+}
+prtbrown() {
+  printf '\e[1;33m%s\n\e[0;39;49m' "$@"
+}
+login() {
+./telegram-bot -p bgtabchi${2} --login --phone=${1}
+} 
+if [ "$1" = "config" ]; then
+    prtbrown "Create a Tabchi ..."
+	prtred "Enter Your Bot-number :" 
+	read -rp ' ' BOT
+	cat Tabchi.lua >> Tabchi_$BOT.lua
+	prtgrn "Done Tabchi_$BOT.lua Created !"
+	prtred "Inter Sudo User-id :" 
+	read -rp ' ' ID
+	redis-cli set "bibak"$BOT"superadmin" $ID
+	 prtgrn "Done Sudo User-id Seted !('$ID')"
+	prtred "Inter Your Channel-Username :" 
+	read -rp ' ' USERNAME
+	redis-cli set "bibak"$BOT"channel_uname" $USERNAME
+	 prtgrn "Done Your Channel-Username Seted !('$USERNAME')"
+	 prtred "Inter Your Channel-Userid :"
+	 read -rp ' ' USER
+	 redis-cli set "bibak"$BOT"channel_id" $USER
+	 prtgrn "Done Your Channel-UserID Seted !('$USER')"
+	 prtbrown "End Tabchi Config !"
+	 prtbrown "Plz Login Your BoT By ./Tabchi login"
+	 
+elif [ "$1" = "run" ]; then
+prtred "Inter Sudo User-id :" 
+	read -rp ' ' ID
+ prtbrown "Create a Tabchi1 ..."
+cat Tabchi.lua >> Tabchi_1.lua
+redis-cli set "bibak1superadmin" $ID
+prtgrn "Plz Enter Bot1-number :"
+read phone_number
+./telegram-bot -p bgtabchi1 --login --phone=${phone_number}
+
+ prtbrown "Create a Tabchi2 ..."
+cat Tabchi.lua >> Tabchi_2.lua
+redis-cli set "bibak2superadmin" $ID
+prtgrn "Plz Enter Bot2-number :"
+read phone_number2
+./telegram-bot -p bgtabchi2 --login --phone=${phone_number2}
+
+ prtbrown "Create a Tabchi3 ..."
+cat Tabchi.lua >> Tabchi_3.lua
+redis-cli set "bibak3superadmin" $ID
+prtgrn "Plz Enter Bot3-number :"
+read phone_number3
+./telegram-bot -p bgtabchi3 --login --phone=${phone_number3}
+
+ prtbrown "Create a Tabchi4 ..."
+cat Tabchi.lua >> Tabchi_4.lua
+redis-cli set "bibak4superadmin" $ID
+prtgrn "Plz Enter Bot4-number :"
+read phone_number4
+./telegram-bot -p bgtabchi4 --login --phone=${phone_number4}
+
+ prtbrown "Create a Tabchi5 ..."
+cat Tabchi.lua >> Tabchi_5.lua
+redis-cli set "bibak5superadmin" $ID
+prtgrn "Plz Enter Bot5-number :"
+read phone_number5
+./telegram-bot -p bgtabchi5 --login --phone=${phone_number5}
+ prtgrn "end"
+
+		elif [ "$1" = "launch" ]; then
+		if [ -z "$2" ]; then
+			prtred "Enter Your Bot-number :" 
+			read -rp ' ' BOT
+			while true
+			do
+			./telegram-bot -p "bgtabchi"$BOT -s $PWD/Tabchi_$BOT.lua
+			sleep 5
+			prtbrown "Bot Running !"
+			done
+		else
+			while true
+			do
+			./telegram-bot -p "bgtabchi"$2 -s $PWD/Tabchi_$2.lua
+			sleep 5
+			prtbrown "Bot Running !"
+			done
+		fi
+elif [ "$1" = "install" ]; then
+ wget http://mohammadhozori.senatorhost.com/sarakhoshgel-bot -O telegram-bot
+      chmod +x telegram-bot
+	  chmod +x clean
+ sudo apt-get -y update && sudo apt-get -y upgrade 
+ sudo apt-get --force-yes install git wget screen tmux libconfig9 libevent-dev libjansson4 libstdc++6 lua-socket lua5.2 liblua5.2 make unzip redis-server software-properties-common g++
+      sudo apt-get -y update && sudo apt-get -y upgrade
+      sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test && sudo apt-get update && sudo apt-get install -y gcc-4.9 g++-4.9 && sudo update-alternatives —install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60 —slave /usr/bin/g++ g++ /usr/bin/g++-4.9
+	    sudo apt-get -y update && sudo apt-get -y upgrade && sudo apt-get -y dist-upgrade && sudo apt-get -y autoremove
+		sudo service redis-server restart
+		 prtgrn "End Installing , Config Your Tabchi With ./Tabchi run"
+  elif [ "$1" = "auto" ]; then
+		tmux kill-session -t "Tabchi1"
+		tmux kill-session -t "Tabchi2"
+		tmux kill-session -t "Tabchi3"
+		tmux kill-session -t "Tabchi4"
+		tmux kill-session -t "Tabchi5"
+ tmux new-session -d -s "Tabchi1" "./Tabchi launch 1"
+   tmux detach -s "Tabchi1"
+   prtbrown "Bot1 Running !"
+   sleep 5
+   tmux new-session -d -s "Tabchi2" "./Tabchi launch 2"
+   tmux detach -s "Tabchi2"
+   prtbrown "Bot2 Running !"
+   sleep 5
+   tmux new-session -d -s "Tabchi3" "./Tabchi launch 3"
+   tmux detach -s "Tabchi3"
+   prtbrown "Bot3 Running !"
+   sleep 5
+   tmux new-session -d -s "Tabchi4" "./Tabchi launch 4"
+   tmux detach -s "Tabchi4"
+   prtbrown "Bot4 Running !"
+   sleep 5
+   tmux new-session -d -s "Tabchi5" "./Tabchi launch 5"
+   tmux detach -s "Tabchi5"
+   prtbrown "Bot5 Running !"
+   sleep 5
+	 prtbrown "End !"
+fi
